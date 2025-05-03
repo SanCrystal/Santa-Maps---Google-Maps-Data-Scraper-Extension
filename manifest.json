@@ -1,0 +1,24 @@
+{
+	"manifest_version": 3,
+	"name": "Santa Maps",
+	"version": "2.0",
+	"description": "Get business data leads from Google Maps with advanced filters",
+	"permissions": ["activeTab", "scripting", "storage"],
+	"host_permissions": [
+		"https://www.google.com/maps/*",
+		"https://www.google.com/*"
+	],
+	"action": {
+		"default_popup": "popup.html",
+		"default_icon": {
+			"16": "map.png",
+			"32": "map.png",
+			"48": "map.png"
+		}
+	},
+	"icons": {
+		"16": "map.png",
+		"48": "map.png",
+		"128": "map.png"
+	}
+}

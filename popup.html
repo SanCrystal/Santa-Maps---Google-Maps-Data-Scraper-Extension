@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Santa Maps</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+    :root {
+      --primary-color: #1A8C1A; 
+      --primary-hover: #136913;
+      --secondary-color: #FFFFFF;
+      --accent-color: #008753; /* Darker green */
+      --success-color: #1A8C1A;
+      --warning-color: #FFD700; /* Gold */
+      --error-color: #E23E28; /* Red */
+      --text-color: #333333;
+      --light-gray: #f5f5f5;
+      --medium-gray: #e0e0e0;
+      --dark-gray: #5f6368;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    body { 
+      min-width: 700px;
+      width: auto;
+      padding: 20px; 
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-color);
+      background-color: var(--secondary-color);
+      box-sizing: border-box;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--primary-color);
+      width: 100%;
+      border-radius: 50%;
+    }
+    
+    .header h1 {
+      font-weight: 700;
+      font-size: 24px;
+      margin: 0;
+      margin-left: 12px;
+      color: var(--primary-color);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    
+    .logo {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+      border-radius: 50%;
+    }
+    
+    .tabs {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--medium-gray);
+      background-color: var(--light-gray);
+      border-radius: var(--border-radius);
+      padding: 4px;
+      width: 100%;
+    }
+    
+    .tab {
+      padding: 10px 24px;
+      cursor: pointer;
+      border-radius: calc(var(--border-radius) - 4px);
+      font-weight: 500;
+      color: var(--dark-gray);
+      transition: all 0.3s ease;
+      text-align: center;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .tab.active {
+      background-color: var(--primary-color);
+      color: white;
+      font-weight: 600;
+      box-shadow: var(--box-shadow);
+    }
+    
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    #message {
+      font-size: 14px;
+      padding: 12px 16px;
+      margin: 15px 0;
+      border-radius: var(--border-radius);
+      background-color: var(--light-gray);
+      border-left: 4px solid var(--primary-color);
+      box-shadow: var(--box-shadow);
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+      width: 100%;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      align-items: flex-end;
+      width: 100%;
+      flex-wrap: nowrap;
+    }
+    
+    .form-control {
+      flex: 1;
+      min-width: 120px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--dark-gray);
+      white-space: nowrap;
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--medium-gray);
+      border-radius: var(--border-radius);
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      transition: border 0.3s ease;
+      box-sizing: border-box;
+      min-width: 0;
+    }
+    
+    .checkbox-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+      width: 100%;
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      background-color: var(--light-gray);
+      padding: 8px 12px;
+      border-radius: var(--border-radius);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin: 25px 0 15px 0;
+      width: 100%;
+      flex-wrap: nowrap;
+    }
+    
+    .button {
+      padding: 12px 24px;
+      min-width: 120px;
+      white-space: nowrap;
+    }
+    
+    .table-container {
+      max-height: 400px;
+      overflow-x: auto;
+      overflow-y: auto;
+      margin: 20px 0;
+      border: 1px solid var(--medium-gray);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      width: 100%;
+    }
+    
+    table {
+      width: 100%;
+      min-width: 650px;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    
+    /* Export buttons row */
+    #results-tab .form-row {
+      flex-wrap: wrap;
+    }
+    
+    #results-tab .form-control {
+      min-width: 200px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 800px) {
+      body {
+        min-width: 600px;
+        padding: 15px;
+      }
+      
+      .form-row {
+        flex-wrap: wrap;
+      }
+      
+      .form-control {
+        min-width: 100%;
+      }
+      
+      .checkbox-group {
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      .button-group {
+        flex-wrap: wrap;
+      }
+      
+      .button {
+        width: 100%;
+      }
+    }
+
+        
+    .search-history {
+      margin-top: 20px;
+    }
+    
+    .history-item {
+      padding: 10px;
+      border: 1px solid var(--medium-gray);
+      border-radius: 6px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    
+    .history-item:hover {
+      background-color: var(--light-gray);
+    }
+  </style>    
+</head>
+<body>
+  <div class="header">
+    <img src="map.png" class="logo" alt="Santa Maps">
+    <h1>Santa Maps</h1>
+  </div>
+  
+  <div class="tabs">
+    <div class="tab active" data-tab="search">Search</div>
+    <div class="tab" data-tab="results">Results</div>
+    <div class="tab" data-tab="history">History</div>
+  </div>
+  
+  <div id="message" class="info">Ready to scrape Google Maps data</div>
+  
+  <div class="tab-content active" id="search-tab">
+    <div class="form-group">
+      <label for="searchQuery">What to search for:</label>
+      <input type="text" id="searchQuery" placeholder="e.g., restaurants, hotels, dentists in Lagos">
+    </div>
+    
+    <div class="form-row">
+      <div class="form-control">
+        <label for="location">Location:</label>
+        <input type="text" id="location" placeholder="e.g., Lagos, Abuja, Port Harcourt">
+      </div>
+      <div class="form-control">
+        <label for="radius">Radius (km):</label>
+        <input type="number" id="radius" placeholder="10" min="1" max="100" value="10">
+      </div>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-control">
+        <label for="minRating">Minimum Rating:</label>
+        <select id="minRating">
+          <option value="0">Any rating</option>
+          <option value="3">3+ stars</option>
+          <option value="4">4+ stars</option>
+          <option value="4.5">4.5+ stars</option>
+        </select>
+      </div>
+      <div class="form-control">
+        <label for="maxResults">Max Results:</label>
+        <input type="number" id="maxResults" placeholder="100" min="10" max="500" value="100">
+      </div>
+    </div>
+    
+    <h3>Data to Collect:</h3>
+    <div class="checkbox-group">
+      <label class="checkbox-item">
+        <input type="checkbox" name="dataFields" value="title" checked> Business Name
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" name="dataFields" value="rating" checked> Rating
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" name="dataFields" value="phone" checked> Phone
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" name="dataFields" value="address" checked> Address
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" name="dataFields" value="website" checked> Website
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" name="dataFields" value="email"> Email
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" name="dataFields" value="hours" checked> Hours
+      </label>
+      <label class="checkbox-item">
+        <input type="checkbox" name="dataFields" value="category" checked> Category
+      </label>
+    </div>
+    
+    <div class="button-group">
+      <button id="startSearch" class="button">Start Search</button>
+      <button id="startScraping" class="button" disabled>Start Scraping</button>
+    </div>
+    <div id="progressBar"></div>
+  </div>
+  
+  <div class="tab-content" id="results-tab">
+    <div class="form-row">
+      <div class="form-control">
+        <label for="exportFilename">Filename:</label>
+        <input type="text" id="exportFilename" placeholder="naija-business-data">
+      </div>
+      <button id="exportCsv" class="button">Export CSV</button>
+      <button id="exportJson" class="button secondary">Export JSON</button>
+    </div>
+    
+    <div class="table-container">
+      <table id="resultsTable">
+        <thead>
+          <tr></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    
+    <div class="status-bar">
+      <span id="resultsCount">No results yet</span>
+      <span id="statusMessage">Ready</span>
+    </div>
+  </div>
+  
+  <div class="tab-content" id="history-tab">
+    <h3>Previous Searches</h3>
+    <div id="historyList" class="search-history">
+      <!-- History items will be added here dynamically -->
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
