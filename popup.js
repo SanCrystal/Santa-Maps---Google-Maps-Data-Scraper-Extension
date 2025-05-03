@@ -342,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				phone,
 				address,
 				website,
-				email, // Google Maps doesn't typically show email
+				email,
 				hours,
 				category,
 				href: link.href.split("?")[0], // Clean URL
@@ -357,7 +357,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		return results;
 	}
 
-	// [Rest of the functions remain the same...]
 	// Render results to table
 	function renderResults() {
 		while (elements.resultsTable.firstChild) {
