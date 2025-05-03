@@ -1,5 +1,3 @@
----
-
 # 📍 Santa Maps - Advanced Google Maps Scraper
 
 **Santa Maps** is a powerful Chrome extension that helps you extract business data from Google Maps with ease. Designed for researchers, marketers, and business analysts, this tool provides a user-friendly interface to scrape and export valuable business information.
